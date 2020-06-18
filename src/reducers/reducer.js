@@ -15,8 +15,6 @@ export const ourReducer = (state = initialState, action) => {
       var pushToComplete = state.dataFromInput[action.payload];
       var newDataFromInput = [...state.dataFromInput];
       newDataFromInput.splice(action.payload, 1);
-      console.log(newDataFromInput);
-      console.log(pushToComplete);
       return {
         ...state,
         dataFromInput: [...newDataFromInput],
@@ -27,8 +25,6 @@ export const ourReducer = (state = initialState, action) => {
       var pushToDo = state.completedList[action.payload];
       var newCompletedList = [...state.completedList];
       newCompletedList.splice(action.payload, 1);
-      console.log(newCompletedList);
-      console.log(pushToDo);
       return {
         ...state,
         dataFromInput: [...state.dataFromInput, pushToDo],
