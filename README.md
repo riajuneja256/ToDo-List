@@ -1,3 +1,14 @@
+## 👉 Get Started
+Install dependencies
+```
+npm install
+```
+Run the development server
+```
+npm run dev
+```
+When the above command completes you'll be able to view your website at `http://localhost:3000`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
