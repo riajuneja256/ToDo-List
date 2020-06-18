@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import Outer from './Boxes';
 
-class Body extends React.Component{
-  render(){
-    return(
+class Body extends React.Component {
+  render() {
+    return (
       <div className="containerCustom">
-        <Outer/>
+        <Outer />
       </div>
     );
   }
@@ -14,7 +14,7 @@ class Body extends React.Component{
 
 const mapStateToProps = (reducerData) => {
   return {
-    ReducerData1:reducerData
+    ReducerData1: reducerData,
   };
 };
 

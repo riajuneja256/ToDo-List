@@ -1,43 +1,80 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { addToDo } from "../actions/action";
+import { updateToDo, updateCompleted, deleteCompleted, deleteToDo } from "../actions/action";
 
+class Outer extends React.Component {
+  handleUpdateCheck = (i) => {
+    this.props.updateToDo(i);
+  };
 
-class Outer extends React.Component{
-  render(){
-    return(
-      <div>
-          <div className="blockParent">
+  handleUpdateCompleted = (i) => {
+    this.props.updateCompleted(i);
+  }
+
+  handleDelete = (i, status) => {
+    if (status === "todo") {
+      this.props.deleteToDo(i);
+    } else {
+      this.props.deleteCompleted(i);
+    }
+  }
+
+  render() {
+    return (
+      <div className="Todolist">
+        <div className="col-12 col-md-5 blockParent">
           <center>
-          <div className="subHeading">New Todo's</div>
+            <div className="subHeading">ToDo List</div>
             <div className="block">
-              <div className="subBlock">
-                <div className="subBlock1">
-                  <div className="taskName">ff</div>
+              {this.props.inputData.map((item, i) => (
+                <div key={item} className="taskName">
+                  {i + 1}. {item}
+                  <span style={{ float: "right" }}>
+                    <span>
+                      <input type="checkbox"
+                        style={{ height: 15, width: 15 }}
+                        className="form-check-input"
+                        onChange={() => this.handleUpdateCheck(i)} >
+                      </input>
+                    </span>
+                    <span>
+                      <p className="close"
+                        style={{ fontSize: 14, marginLeft: 5, lineHeight: 1.5 }}
+                        onClick={() => this.handleDelete(i, "todo")}>
+                        x
+                      </p>
+                    </span>
+                  </span>
                 </div>
-                <div className="subBlock2">
-                  <div className="checkboxParent">
-                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"></input> 
-                  </div>
-                </div>
-                </div>
-              </div>
+              ))}
+            </div>
           </center>
         </div>
-        <div className="blockParent">
+        <div className="col-12 col-md-5 blockParent">
           <center>
-          <div className="subHeading">Completed Todo's</div>
+            <div className="subHeading">Completed</div>
             <div className="block">
-              <div className="subBlock">
-                <div className="subBlock1">
-                  <div className="taskName">Something</div>
+              {this.props.completedData.map((item, i) => (    
+                <div key={item} className="taskName">
+                  {i + 1}. {item}
+                  <span style={{ float: "right" }}>
+                    <span>
+                      <input type="checkbox"
+                        style={{ height: 15, width: 15 }}
+                        className="form-check-input"
+                        onChange={() => this.handleUpdateCompleted(i)} checked>
+                      </input>
+                    </span>
+                    <span>
+                      <p className="close"
+                        style={{ fontSize: 14, marginLeft: 5, lineHeight: 1.5 }}
+                        onClick={() => this.handleDelete(i, "completed")}>
+                        x
+                      </p>
+                    </span>
+                  </span>
                 </div>
-                <div className="subBlock2">
-                  <div className="checkboxParent">
-                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"></input> 
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </center>
         </div>
@@ -46,16 +83,17 @@ class Outer extends React.Component{
   }
 }
 
-const mapStateToProps = (ourReducer) => {
-  console.log(ourReducer);
-
+const mapStateToProps = (reducerData) => {
   return {
-    inputData: ourReducer
+    inputData: reducerData.dataFromInput,
+    completedData: reducerData.completedList
   };
-  
 }
 
 const mapDispatchToProps = {
-  addToDo
+  updateToDo,
+  updateCompleted,
+  deleteCompleted,
+  deleteToDo
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Outer);
